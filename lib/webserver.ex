@@ -20,8 +20,7 @@ defmodule Wwwest.WebServer.Handler do
 					{"@callback_module", ( res = :application.get_env(:wwwest, :callback_module, nil); true = is_atom(res); res  )},
 					{"@server_timeout",  ( res = :application.get_env(:wwwest, :server_timeout, nil); true = (is_integer(res) and (res > 0)); res  )},
 					{"@trx_ttl", (  res = :application.get_env(:wwwest, :trx_ttl, nil);  true = (is_integer(res) and (res > 0)); res )},
-					{"@error_post", %Wwwest.Proto{result: "Bad req, use POST"} |> Jazz.encode!},
-					{"@error_ok", %Wwwest.Proto{result: "Your req is ok, but these funcs are not written yet"} |> Jazz.encode!}
+					{"@error_post", %Wwwest.Proto{result: "Bad req, use POST"} |> Jazz.encode!}
 				 ]
 	#
 	#	public
