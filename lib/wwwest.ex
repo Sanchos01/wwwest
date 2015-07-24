@@ -36,4 +36,6 @@ defmodule Wwwest do
 
   def ok(some = %Wwwest.Proto{}), do: HashUtils.set(some, :ok, true)
 
+  def roll_trx(error), do: Wwwest.error("got exception in processing trx : #{inspect error}")
+
 end

@@ -45,7 +45,7 @@ defmodule Wwwest.WebServer.Handler do
 		daddy = self()
 		case trx do
 			nil -> spawn(fn() -> send(daddy, {:json, @callback_module.handle_wwwest(client_req)}) end)
-			_ -> spawn(fn() -> send(daddy, Tinca.trx(fn() -> {:json, @callback_module.handle_wwwest(client_req)} end, nil, trx, @trx_ttl)) end)
+			_ -> spawn(fn() -> send(daddy, Tinca.trx(fn() -> {:json, @callback_module.handle_wwwest(client_req)} end, &Wwwest.roll_trx/1, trx, @trx_ttl)) end)
 		end
 		{:cowboy_loop, req, nil, @server_timeout}
 	end
