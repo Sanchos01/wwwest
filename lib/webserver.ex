@@ -1,6 +1,6 @@
 defmodule Wwwest.WebServer do
 	use Silverb, 	[
-						{"@port", :application.get_env(:wwwest, :server_port, nil)},
+						{"@port", (  res = :application.get_env(:wwwest, :server_port, nil); true = (is_integer(res) and (res > 0)); res  )},
 						{"@routes", [{"/[...]", Wwwest.WebServer.Handler, []}]}
 					]
 	@compiled_routes :cowboy_router.compile([_: @routes])
@@ -17,10 +17,12 @@ end
 
 defmodule Wwwest.WebServer.Handler do
 	use Silverb, [
+					{"@callback_module", ( res = :application.get_env(:wwwest, :callback_module, nil); true = is_atom(res); res  )},
+					{"@server_timeout",  ( res = :application.get_env(:wwwest, :server_timeout, nil); true = (is_integer(res) and (res > 0)); res  )},
+					{"@trx_ttl", (  res = :application.get_env(:wwwest, :trx_ttl, nil);  true = (is_integer(res) and (res > 0)); res )},
 					{"@error_post", %Wwwest.Proto{result: "Bad req, use POST"} |> Jazz.encode!},
 					{"@error_ok", %Wwwest.Proto{result: "Your req is ok, but these funcs are not written yet"} |> Jazz.encode!}
 				 ]
-	defp reply(ans, req, state), do: {:ok, :cowboy_req.reply(200, [{"Content-Type","application/json; charset=utf-8"}], ans, req), state}
 	#
 	#	public
 	#
@@ -31,7 +33,7 @@ defmodule Wwwest.WebServer.Handler do
 			false -> reply(@error_post, req, nil)
 			true ->  {:ok, req_body, req} = :cowboy_req.body(req)
 					 case Wwwest.decode_safe(req_body) do
-					 	{:ok, term} -> decode_and_process(term, req)
+					 	{:ok, term = %{}} -> %Wwwest.Proto{} |> HashUtils.keys |> Enum.reduce(%Wwwest.Proto{}, fn(k,acc) -> HashUtils.set(acc, k, Map.get(term, k)) end) |> HashUtils.set(:ok, false) |> run_request(req)
 					 	error -> %Wwwest.Proto{result: "Error on decoding req #{inspect error}"} |> Wwwest.encode |> reply(req, nil)
 					 end
 		end
@@ -39,10 +41,13 @@ defmodule Wwwest.WebServer.Handler do
 	#
 	#	priv
 	#
-	defp decode_and_process(term, req) do
-		#
-		#	TODO
-		#
-		reply(@error_ok, req, nil)
+	defp reply(ans, req, state), do: {:ok, :cowboy_req.reply(200, [{"Content-Type","application/json; charset=utf-8"}], ans, req), state}
+	defp run_request(client_req = %Wwwest.Proto{trx: trx}, req) do
+		daddy = self()
+		case trx do
+			nil -> spawn(fn() -> send(daddy, {:json, @callback_module.handle_wwwest(client_req)}) end)
+			_ -> spawn(fn() -> send(daddy, Tinca.trx(fn() -> {:json, @callback_module.handle_wwwest(client_req)} end, nil, trx, @trx_ttl)) end)
+		end
+		{:cowboy_loop, req, nil, @server_timeout}
 	end
 end

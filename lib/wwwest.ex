@@ -1,9 +1,6 @@
 defmodule Wwwest do
   use Application
-  use Silverb,  [
-                  {"@memo_ttl", :application.get_env(:wwwest, :memo_ttl, nil)},
-                  {"@trx_ttl", :application.get_env(:wwwest, :trx_ttl, nil)}
-                ]
+  use Silverb, [{"@memo_ttl", (  res = :application.get_env(:wwwest, :memo_ttl, nil); true = (is_integer(res) and (res > 0)); res  )}]
   use Wwwest.Structs
   use Logex, [ttl: 100]
 
@@ -32,8 +29,11 @@ defmodule Wwwest do
   defmacro callback_module([do: body]) do
     quote location: :keep do
       unquote(body)
+      def handle_wwwest(some = %Wwwest.Proto{}), do: HashUtils.set(some, :result, "unexpected query #{inspect some}") |> Wwwest.encode
       def handle_wwwest(some), do: %Wwwest.Proto{result: "unexpected query #{inspect some}"} |> Wwwest.encode
     end
   end
+
+  def ok(some = %Wwwest.Proto{}), do: HashUtils.set(some, :ok, true)
 
 end

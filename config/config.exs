@@ -16,10 +16,11 @@ use Mix.Config
 #       metadata: [:user_id]
 
 	config :wwwest, 
-		server_port: 9876, 
-		memo_ttl: 3600000,
-		trx_ttl: 3600000,
-		callback_module: HelloJreact.Myswt.Callbacks
+		server_port: 9868, 
+		server_timeout: 20000, # timeout for all requests
+		memo_ttl: 3600000, # timeout for memorize json encode and decode
+		trx_ttl: 3600000, # timeout for all trx transactions
+		callback_module: Wwwest.Example # here are handlers for requests
 
 # It is also possible to import configuration files, relative to this
 # directory. For example, you can emulate configuration per environment

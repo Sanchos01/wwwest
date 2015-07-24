@@ -2,9 +2,11 @@ defmodule Wwwest.Structs do
 	use Silverb
 	defmacro __using__(_) do
 		quote location: :keep do
+			use Hashex, [
+							__MODULE__.Proto
+						]
 			defmodule Proto do
-				defstruct 	id: nil, # request id
-							cmd: nil,
+				defstruct 	cmd: nil,
 							args: nil,
 							trx: nil,
 							ok: false,

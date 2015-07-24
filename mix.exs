@@ -19,7 +19,8 @@ defmodule Wwwest.Mixfile do
                       :silverb,
                       :cowboy,
                       :logex,
-                      :jazz
+                      :jazz,
+                      :hashex
                     ],
      mod: {Wwwest, []}]
   end
@@ -38,7 +39,8 @@ defmodule Wwwest.Mixfile do
       {:silverb, github: "timCF/silverb"},
       {:cowboy, github: "ninenines/cowboy"},
       {:logex, github: "timCF/logex"},
-      {:jazz, github: "meh/jazz"}
+      {:jazz, github: "meh/jazz"},
+      {:hashex, github: "timCF/hashex"}
     ]
   end
 end
