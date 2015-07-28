@@ -40,7 +40,7 @@ defmodule Wwwest.WebServer.Handler do
 	#
 	#	priv
 	#
-	defp reply(ans, req, state), do: {:ok, :cowboy_req.reply(200, [{"Content-Type","application/json; charset=utf-8"}], ans, req), state}
+	defp reply(ans, req, state), do: {:ok, :cowboy_req.reply(200, [{"Content-Type","application/json; charset=utf-8"},{"connection","close"}], ans, req), state}
 	defp run_request(client_req = %Wwwest.Proto{trx: trx}, req) do
 		daddy = self()
 		case trx do
