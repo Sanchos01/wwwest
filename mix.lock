@@ -1,13 +1,15 @@
 %{"conform": {:hex, :conform, "0.13.0"},
-  "cowboy": {:git, "git://github.com/ninenines/cowboy.git", "d2924de2b6a2634a40d2b57c0fdeed255f0d2acd", []},
+  "cowboy": {:git, "git://github.com/ninenines/cowboy.git", "d2924de2b6a2634a40d2b57c0fdeed255f0d2acd", [tag: "d2924de2b6a2634a40d2b57c0fdeed255f0d2acd"]},
   "cowlib": {:git, "git://github.com/ninenines/cowlib.git", "14e597baa42a436469f99661ed7994685e269dc2", [ref: "1.3.0"]},
   "exactor": {:git, "git://github.com/sasa1977/exactor.git", "0467f8100bc735405d597dbf94996195eb31e0b6", [tag: "0467f8100bc735405d597dbf94996195eb31e0b6"]},
   "exrm": {:git, "git://github.com/bitwalker/exrm.git", "bebc97c7707b6019a2790132b16653418f25afdc", [tag: "bebc97c7707b6019a2790132b16653418f25afdc"]},
   "extask": {:git, "git://github.com/timCF/extask.git", "691cc1a515750bead8b81ed6c13cddbcf115d754", []},
-  "exutils": {:git, "git://github.com/timCF/exutils.git", "8a7806419f83656afa4aaf97c595597be9cdc67a", []},
+  "exutils": {:git, "git://github.com/timCF/exutils.git", "07ac3330459fdc4f99a5914de8cb151170a6bc13", []},
   "hashex": {:git, "git://github.com/timCF/hashex.git", "cc6b4307daa1ab18c94cdd33bf3cb8a3dab28b96", []},
   "jazz": {:git, "git://github.com/meh/jazz.git", "49f335492aca5516495199dd81dd18b845ebaa69", []},
   "logex": {:git, "git://github.com/timCF/logex.git", "074e631a59f689bc8b52b803f1a6ecc1819e8240", []},
+  "quickrand": {:hex, :quickrand, "1.5.0"},
   "ranch": {:git, "git://github.com/ninenines/ranch.git", "adf1822defc2b7cfdc7aca112adabfa1d614043c", [ref: "1.0.0"]},
   "silverb": {:git, "git://github.com/timCF/silverb.git", "1ea39cd1bb63c2d99cacca954e0c8f2788961686", []},
-  "tinca": {:git, "git://github.com/timCF/tinca.git", "dc65918473de04eef8340e9500754811882c5515", []}}
+  "tinca": {:git, "git://github.com/timCF/tinca.git", "dc65918473de04eef8340e9500754811882c5515", []},
+  "uuid": {:git, "git://github.com/okeuday/uuid.git", "6bc38507460c821321d66504d3f8d6c1cdb57d98", []}}

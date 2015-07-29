@@ -37,7 +37,7 @@ defmodule Wwwest.Mixfile do
   defp deps do
     [
       {:silverb, github: "timCF/silverb"},
-      {:cowboy, github: "ninenines/cowboy"},
+      {:cowboy, github: "ninenines/cowboy", tag: "d2924de2b6a2634a40d2b57c0fdeed255f0d2acd", override: true},
       {:logex, github: "timCF/logex"},
       {:jazz, github: "meh/jazz"},
       {:hashex, github: "timCF/hashex"}
