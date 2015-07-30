@@ -20,7 +20,8 @@ defmodule Wwwest.WebServer.Handler do
 					{"@callback_module", ( res = :application.get_env(:wwwest, :callback_module, nil); true = is_atom(res); res  )},
 					{"@server_timeout",  ( res = :application.get_env(:wwwest, :server_timeout, nil); true = (is_integer(res) and (res > 0)); res  )},
 					{"@trx_ttl", (  res = :application.get_env(:wwwest, :trx_ttl, nil);  true = (is_integer(res) and (res > 0)); res )},
-					{"@error_post", %Wwwest.Proto{result: "Bad req, use POST"} |> Jazz.encode!}
+					{"@error_post", %Wwwest.Proto{result: "Bad req, use POST"} |> Jazz.encode!},
+					{"@basic_auth", ( res = :application.get_env(:wwwest, :basic_auth, nil); true = ((res == :none) or (is_binary(res[:login]) and is_binary(res[:password]) and is_map(res))); res )}
 				 ]
 	#
 	#	public
@@ -28,6 +29,13 @@ defmodule Wwwest.WebServer.Handler do
 	def info({:json, json}, req, state), do: reply(json, req, state)
 	def terminate(_reason, _req, _state), do: :ok
 	def init(req, _opts) do
+		case {:cowboy_req.parse_header("authorization", req), @basic_auth} do
+			{{:basic, login, password}, %{login: login, password: password}} -> init_proc(req)
+			{_, none} when (none == :none) -> init_proc(req)
+			_ -> {:ok, :cowboy_req.reply(401, [{"WWW-Authenticate", "Basic realm=\"wwwest server\""},{"connection","close"}], "", req), nil}
+		end
+	end
+	defp init_proc(req) do
 		case :cowboy_req.has_body(req) do
 			false -> reply(@error_post, req, nil)
 			true ->  {:ok, req_body, req} = :cowboy_req.body(req)
@@ -35,7 +43,7 @@ defmodule Wwwest.WebServer.Handler do
 					 	{:ok, term = %{}} -> %Wwwest.Proto{} |> HashUtils.keys |> Enum.reduce(%Wwwest.Proto{}, fn(k,acc) -> HashUtils.set(acc, k, Map.get(term, k)) end) |> HashUtils.set(:ok, false) |> run_request(req)
 					 	error -> %Wwwest.Proto{result: "Error on decoding req #{inspect error}"} |> Wwwest.encode |> reply(req, nil)
 					 end
-		end
+		end		
 	end
 	#
 	#	priv
