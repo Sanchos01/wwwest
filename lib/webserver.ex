@@ -28,7 +28,9 @@ defmodule Wwwest.WebServer.Handler do
 	#
 	def info({:json, json}, req, state), do: reply(json, req, state)
 	def terminate(_reason, _req, _state), do: :ok
-	def init(req, _opts) do
+	def init(req, _opts), do: init_func(req)
+	def handle(req, _state), do: init_func(req)
+	defp init_func(req) do
 		case {:cowboy_req.parse_header("authorization", req), @basic_auth} do
 			{{:basic, login, password}, %{login: login, password: password}} -> init_proc(req)
 			{_, none} when (none == :none) -> init_proc(req)
