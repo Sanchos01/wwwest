@@ -15,10 +15,10 @@ use Mix.Config
 #       format: "$date $time [$level] $metadata$message\n",
 #       metadata: [:user_id]
 
-	config :wwwest, 
-		server_port: 9868, 
-		server_timeout: 20000, # timeout for all requests
-		memo_ttl: 3600000, # timeout for memorize json encode and decode
+	config :wwwest,
+		server_port: 9868,
+		server_timeout: 120000, # timeout for all requests
+		memo_ttl: 60000, # timeout for memorize json encode and decode
 		trx_ttl: 3600000, # timeout for all trx transactions
 		callback_module: Wwwest.Example, # here are handlers for requests
 		basic_auth: %{login: "login", password: "password"} # | :none
