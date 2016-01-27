@@ -21,7 +21,8 @@ use Mix.Config
 		memo_ttl: 60000, # timeout for memorize json encode and decode
 		trx_ttl: 3600000, # timeout for all trx transactions
 		callback_module: Wwwest.Example, # here are handlers for requests
-		basic_auth: %{login: "login", password: "password"} # | :none
+		basic_auth: %{login: "login", password: "password"}, # | :none
+		crossdomain: true # false
 # It is also possible to import configuration files, relative to this
 # directory. For example, you can emulate configuration per environment
 # by uncommenting the line below and defining dev.exs, test.exs and such.

@@ -23,6 +23,7 @@ use ExUnit.Case
 			"curl -d '{\"cmd\":\"wrong\"}' -u login:password http://127.0.0.1:9868",
 			"curl -u login:password http://127.0.0.1:9868",
 			"curl -d '{\"cmd\":\"wrong\"}}}}}}' -u login:password http://127.0.0.1:9868",
+			"curl -u login:password http://127.0.0.1:9868/crossdomain.xml",
 			"curl -d '{\"cmd\":\"sum\",\"args\":[1,2,3]}' -u not:auth -v http://127.0.0.1:9868"
 		]
 		|> Enum.each(&exec/1)
