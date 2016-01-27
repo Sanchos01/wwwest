@@ -4,13 +4,14 @@ Wwwest
 Amazing simple long pooling wrapper around erlang cowboy. First, write config, like this
 
 ```
-config :wwwest, 
-	server_port: 9868, 
+config :wwwest,
+	server_port: 9868,
 	server_timeout: 20000, # timeout for all requests
 	memo_ttl: 3600000, # timeout for memorize json encode and decode
 	trx_ttl: 3600000, # timeout for all trx transactions
 	callback_module: Wwwest.Example, # here are handlers for requests
-	basic_auth: %{login: "login", password: "password"} # | :none
+	basic_auth: %{login: "login", password: "password"}, # | :none
+	crossdomain: true # false
 ```
 
 Second, write callback module with only one function "handle_wwwest(%Wwwest.Proto{}) -> binary"
@@ -63,7 +64,7 @@ Also it can handle incorrect requests
 curl -d '{"cmd":"wrong"}' -u login:password http://127.0.0.1:9868
 {"args":null,"cmd":"wrong","ok":false,"result":"unexpected query %Wwwest.Proto{args: nil, cmd: \"wrong\", ok: false, result: nil, trx: nil}","trx":null}
 
-curl -u login:password http://127.0.0.1:9868 
+curl -u login:password http://127.0.0.1:9868
 {"args":null,"cmd":null,"ok":false,"result":"Bad req, use POST","trx":null}
 
 curl -d '{"cmd":"wrong"}}}}}}' -u login:password http://127.0.0.1:9868
