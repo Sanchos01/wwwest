@@ -169,7 +169,7 @@ defmodule Wwwest.WebServer.Handler do
 		receive do
 			{:json, ^client_req, json} -> reply(json, 200, req)
 		after
-			@server_timeout -> reply(@error_timeout, 405, req)
+			@server_timeout -> reply(@error_timeout, 408, req)
 		end
 	end
 
