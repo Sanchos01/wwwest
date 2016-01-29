@@ -16,6 +16,6 @@
   "quickrand": {:hex, :quickrand, "1.5.0"},
   "ranch": {:git, "git://github.com/extend/ranch.git", "5df1f222f94e08abdcab7084f5e13027143cc222", [ref: "0.9.0"]},
   "relx": {:hex, :relx, "3.5.0"},
-  "silverb": {:git, "https://github.com/timCF/silverb.git", "c13d12f8b2bc6a09075bb9b7ec140600e8d959ed", []},
+  "silverb": {:git, "https://github.com/timCF/silverb.git", "7a093e67590c4b38240a864ef8ef33ff82db3ad1", []},
   "tinca": {:git, "https://github.com/timCF/tinca.git", "dc65918473de04eef8340e9500754811882c5515", []},
   "uuid": {:git, "https://github.com/okeuday/uuid.git", "6bc38507460c821321d66504d3f8d6c1cdb57d98", []}}

@@ -12,7 +12,7 @@ defmodule Wwwest.WebServer do
 			{:ok, _} -> Wwwest.notice("web listener on port #{Integer.to_string @port} started")
 			{_, reason} ->
 				Wwwest.error("failed to start listener, reason: #{inspect reason}")
-				receive do after 1000 -> end
+				receive do after 1000 -> nil end
 				:erlang.halt
 		end
 	end
