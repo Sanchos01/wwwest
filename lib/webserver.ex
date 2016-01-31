@@ -41,10 +41,8 @@ end
 
 defmodule Wwwest.WebServer.CrossDomain do
 	require Wwwest.WebServer.Commons
-	use Silverb, [
-		{"@crossdomain", (case Application.get_env(:wwwest, :crossdomain) do ; true -> true ; false -> false ; nil -> false ; end)},
-		{"@crossdomainxml", ((Exutils.priv_dir(:wwwest)<>"/crossdomain.xml") |> File.read!)}
-	]
+	use Silverb, [{"@crossdomain", (case Application.get_env(:wwwest, :crossdomain) do ; true -> true ; false -> false ; nil -> false ; end)}]
+	@crossdomainxml ((Exutils.priv_dir(:wwwest)<>"/crossdomain.xml") |> File.read!)
 
 	def terminate(_reason, _req, _state), do: :ok
 	def init(_, req, _opts), do: Wwwest.WebServer.Commons.init_macro(req)

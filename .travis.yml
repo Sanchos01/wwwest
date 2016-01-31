@@ -3,9 +3,9 @@ os:
   - osx
 language: elixir
 elixir:
-  - 1.2.1
+  - 1.1.1
 otp_release:
-  - 18.2
+  - 18.0
 script:
   - mix test
   - echo "getting cibash scripts"
