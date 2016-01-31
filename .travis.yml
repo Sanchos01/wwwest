@@ -1,24 +1,16 @@
+os:
+  - linux
+  - osx
 language: elixir
 elixir:
   - 1.2.1
 otp_release:
   - 18.2.1
 script:
-  - mix local.hex --force
-  - mix local.rebar --force
-  - mix deps.get
-  - mix compile
   - mix test
-  - cd ..
-  - tar -zcvf linux64.tar.gz ./wwwest
-  - mv ./linux64.tar.gz ./wwwest/linux64.tar.gz
-  - cd ./wwwest
-deploy:
-  provider: releases
-  api_key:
-    secure: yZgLxwq7mDjxu7wxSjlagGgAXQZf//l6wTgyk1vNLBRdOFaURPGinVXSvfqoKHs+gp2vvbn4/KOxLNyihW+eSaXHTVOFpOdV9xMKcJDe9WtFLC3MHqCm/NDX16Jc+DUeMazv7IDOHp6FUwKIEuVBoMcbGnxLzpD+lLM3h/3x2yFW8beH3Yze3Tc3w5CNqJlYijzrHeNmbRxo3d/ADy/Xj51X/p1ltn7ee42pjtyci5PojaosvAMcAbLsm1zNNRtLTWy7MRZCl95tYgx3mewncR770pv8k8Vl86TbXqHqm9WCYIqe4X2p6MLUJE3/vG1KbJ/cu3r/iB6aZGSTuNBnQUnv2Xooggcp8ubc4yeWdRxb/HvQnKp/MXuHf12VAXjq4kDKJN13GfuDcmCJPJccZenRiv5jgs9ffKodZgkC8pOGw/zzg/cM4QXzVKEOSVUiZ595UhRj8I8BE1iR25oOhJe9njjJ1TPkc7CjfG6WGdvOEJakRBIADoxxBhOWymguvFCYvnBiS6+7C9VwvymMfjLzLputFF1DL/VDEFjPFZcn2AdsG7IeZ8V70tnAoIgd3Ja1L1M0Nm/SBNO9OKoLbt7nXtZBn0Q3xDtJY60zUn8gOvg4P3g0ItkhpbUEoQcisoRax/M5xN3UezqphkMPWcRgcUwdYg4ftil3biY0dA8=
-  file: linux64.tar.gz
-  skip_cleanup: true
-  on:
-    repo: timCF/wwwest
-    tags: true
+  - echo "getting cibash scripts"
+  - wget https://github.com/timCF/cibash/archive/0.0.2.tar.gz
+  - tar xvzf ./0.0.2.tar.gz
+  - echo "START elixir build script"
+  - ./cibash-0.0.2/elixir_yandex.sh wwwest wwwest build
+  - echo "END elixir build script"
