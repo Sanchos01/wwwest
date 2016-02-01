@@ -1,6 +1,5 @@
 os:
 - linux
-- osx
 language: elixir
 elixir:
 - 1.2.2
