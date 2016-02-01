@@ -1,16 +1,22 @@
 os:
-  - linux
-  - osx
+- linux
+- osx
 language: elixir
 elixir:
-  - 1.2.2
+- 1.2.2
 otp_release:
-  - 18.2.1
+- 18.2.1
+notifications:
+  email: false
+  hipchat:
+    notify: true
+    rooms:
+      secure: MJuaR11hwMiZqWl/+JURb0VYJuWVLPK4xshYmw7TavdkJNEiqmDnGvNnxSAE8k89dQ2Ux/sYYD94a1mHUUEfZR31Bqj7MwWkw8FwotWlp6D65l56pmk2ilAS8T6UA/6QToUs02WP6sLL7xUknQo6dbQPAQ1fPyEuRs8CRw5LAKgp3cI/j8ntNoFaCgefRiQMNmlwb8iMBWQulvR2nNDkSxEwI4+H2n1rBpK7bZey1RjNK0sptQWElMRm6e7mUEDvkRz8hekD7MuNNjZ7UJ24IovOrTKtNmFOcOOMVV1lqOTsYXVex/M6OrsT/nB+joIO0qXKdt09GodtlUXaLRT7D65L6elpVZP5qw+Hj+m6e+b0dhbyvoIWL/vnOBG48M1q9Ge3KgBIFZXOQePqs0dOZU0W1p8v20MZ9RrPEFyknJxhqMGAz6j5x4T0UCRmm8a2WDntoJsaDYMxTtoIQ/1VCik9F6QbxYukHXD0GnUr8o/Eg8s32MTCmnMWrjT4vWq/vZHKJJ7S6FW1z2dq2wkimOXlSMj32SvvCpQULcJc1I9WjTP4TxgmbZ9XdxweTv/Z0ywRDDHLt5OZBRHsd2nIp4D6zz3acuKKOcWodpAU5SgtcsQAn4QUqhbre1iUmFdI6lyEfxANuBuhjMkPE8zseIB+m+69EiTB0/LOOBpLah8=
 script:
-  - mix test
-  - echo "getting cibash scripts"
-  - wget https://github.com/timCF/cibash/archive/0.0.2.tar.gz
-  - tar xvzf ./0.0.2.tar.gz
-  - echo "START elixir build script"
-  - ./cibash-0.0.2/elixir_yandex.sh wwwest wwwest build
-  - echo "END elixir build script"
+- mix test
+- echo "getting cibash scripts"
+- wget https://github.com/timCF/cibash/archive/0.0.2.tar.gz
+- tar xvzf ./0.0.2.tar.gz
+- echo "START elixir build script"
+- "./cibash-0.0.2/elixir_yandex.sh wwwest wwwest build"
+- echo "END elixir build script"
