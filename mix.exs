@@ -38,7 +38,7 @@ defmodule Wwwest.Mixfile do
     [
       {:silverb, github: "timCF/silverb"},
       {:cowboy, github: "ninenines/cowboy", tag: "0.9.0", override: true},
-      {:logex, github: "timCF/logex"},
+      {:logex, github: "Sanchos01/logex"},
       {:jazz, github: "meh/jazz"},
       {:hashex, github: "timCF/hashex"}
     ]
